@@ -31,7 +31,7 @@ jobs:
         B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
         B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
       run: |
-        b2 authorize-account $B2_KEY_ID $B2_APPLICATION_KEY
+        b2 account authorize $B2_KEY_ID $B2_APPLICATION_KEY
 
     - name: List Files in B2 Bucket
       run: |
