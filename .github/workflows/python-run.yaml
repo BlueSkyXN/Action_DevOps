@@ -33,9 +33,9 @@ jobs:
 
     - name: Download Files from B2
       run: |
-        b2 file download Github-SKY 全部客户名单_带分词结果4.xlsx ./全部客户名单_带分词结果4.xlsx
-        b2 file download Github-SKY 词频统计结果_三阶清洗.xlsx ./词频统计结果_三阶清洗.xlsx
-        b2 file download Github-SKY 重点客户名单_带分词结果4.xlsx ./重点客户名单_带分词结果4.xlsx
+        b2 file download b2://Github-SKY/全部客户名单_带分词结果4.xlsx ./全部客户名单_带分词结果4.xlsx
+        b2 file download b2://Github-SKY/词频统计结果_三阶清洗.xlsx ./词频统计结果_三阶清洗.xlsx
+        b2 file download b2://Github-SKY/重点客户名单_带分词结果4.xlsx ./重点客户名单_带分词结果4.xlsx
         ls -la
 
     - name: Set up Python
@@ -89,9 +89,9 @@ jobs:
 
     - name: Download Files from B2
       run: |
-        b2 file download Github-SKY 全部客户名单_带分词结果4.xlsx ./全部客户名单_带分词结果4.xlsx
-        b2 file download Github-SKY 词频统计结果_三阶清洗.xlsx ./词频统计结果_三阶清洗.xlsx
-        b2 file download Github-SKY 重点客户名单_带分词结果4.xlsx ./重点客户名单_带分词结果4.xlsx
+        b2 file download b2://Github-SKY/全部客户名单_带分词结果4.xlsx ./全部客户名单_带分词结果4.xlsx
+        b2 file download b2://Github-SKY/词频统计结果_三阶清洗.xlsx ./词频统计结果_三阶清洗.xlsx
+        b2 file download b2://Github-SKY/重点客户名单_带分词结果4.xlsx ./重点客户名单_带分词结果4.xlsx
         ls -la
 
     - name: Set up Python
