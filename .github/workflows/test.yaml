@@ -35,7 +35,7 @@ jobs:
 
     - name: List Files in B2 Bucket
       run: |
-        b2 ls Github-SKY --long
+        b2 ls b2://Github-SKY --long
 
     - name: Download Specific File from B2
       run: |
