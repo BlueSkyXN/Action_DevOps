@@ -35,9 +35,9 @@ jobs:
 
     - name: Download Files from B2
       run: |
-        b2 download-file-by-name Github-SKY 全部客户名单_带分词结果4.xlsx ./全部客户名单_带分词结果4.xlsx
-        b2 download-file-by-name Github-SKY 词频统计结果_三阶清洗.xlsx ./词频统计结果_三阶清洗.xlsx
-        b2 download-file-by-name Github-SKY 重点客户名单_带分词结果4.xlsx ./重点客户名单_带分词结果4.xlsx
+        b2 download-file-by-name Github-SKY 全部客户名单_带分词结果4.xlsx ./Ruijie_DEV/全部客户名单_带分词结果4.xlsx
+        b2 download-file-by-name Github-SKY 词频统计结果_三阶清洗.xlsx ./Ruijie_DEV/词频统计结果_三阶清洗.xlsx
+        b2 download-file-by-name Github-SKY 重点客户名单_带分词结果4.xlsx ./Ruijie_DEV/重点客户名单_带分词结果4.xlsx
         ls -la
 
   run-matching-jaccard:
@@ -58,7 +58,7 @@ jobs:
     - name: Run Jaccard Matching Script
       run: |
         echo "Running the Jaccard Matching script:"
-        python 综合/同客异名识别算法/Cloud-Jaccard词汇相似度匹配算法.py
+        python Ruijie_DEV/综合/同客异名识别算法/Cloud-Jaccard词汇相似度匹配算法.py
         echo "Listing files in the current directory after script execution:"
         ls -alh
 
@@ -85,7 +85,7 @@ jobs:
     - name: Run FuzzyWuzzy Matching Script
       run: |
         echo "Running the FuzzyWuzzy Matching script:"
-        python 综合/同客异名识别算法/Cloud-fuzzywuzzy字符串相似度匹配算法.py
+        python Ruijie_DEV/综合/同客异名识别算法/Cloud-fuzzywuzzy字符串相似度匹配算法.py
         echo "Listing files in the current directory after script execution:"
         ls -alh
 
