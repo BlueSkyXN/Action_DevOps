@@ -1,0 +1,21 @@
+name: Access Private Repo
+
+on:
+  workflow_dispatch:  # 手动触发
+
+
+jobs:
+  checkout-private-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Public Repository
+      uses: actions/checkout@v3
+
+    - name: Checkout Private Repository
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git clone https://$PAT_TOKEN@github.com/BlueSkyXN/Ruijie_DEV.git
+        cd private-repo
+        ls -la
