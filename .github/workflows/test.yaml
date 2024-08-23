@@ -17,5 +17,6 @@ jobs:
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         git clone https://$PAT_TOKEN@github.com/BlueSkyXN/Ruijie_DEV.git
-        cd private-repo
+        ls -la
+        cd Ruijie_DEV
         ls -la
