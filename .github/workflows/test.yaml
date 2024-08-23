@@ -1,8 +1,7 @@
-name: Access Private Repo
+name: Access Private Repo and B2 Operations
 
 on:
   workflow_dispatch:  # 手动触发
-
 
 jobs:
   checkout-private-repo:
@@ -19,4 +18,31 @@ jobs:
         git clone https://$PAT_TOKEN@github.com/BlueSkyXN/Ruijie_DEV.git
         ls -la
         cd Ruijie_DEV
+        ls -la
+
+    - name: Install B2 CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        pip3 install b2
+
+    - name: Authenticate with B2
+      env:
+        B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+        B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+      run: |
+        b2 authorize-account $B2_KEY_ID $B2_APPLICATION_KEY
+
+    - name: List Files in B2 Bucket
+      run: |
+        b2 ls Github-SKY --long
+
+    - name: Download Specific File from B2
+      run: |
+        b2 download-file-by-name Github-SKY 重点客户名单_带分词结果4.xlsx ./重点客户名单_带分词结果4.xlsx
+        ls -la
+
+    - name: Upload Processed File to B2
+      run: |
+        b2 upload-file Github-SKY ./Ruijie_DEV/综合/同客异名识别算法/Cloud-fuzzywuzzy字符串相似度匹配算法.py Cloud-fuzzywuzzy字符串相似度匹配算法.py
         ls -la
