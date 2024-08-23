@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # 手动触发
 
 jobs:
-  download-repo-and-files:
+  run-matching-jaccard:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +16,6 @@ jobs:
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         git clone https://$PAT_TOKEN@github.com/BlueSkyXN/Ruijie_DEV.git
-        ls -la
-        cd Ruijie_DEV
         ls -la
 
     - name: Install B2 CLI
@@ -40,11 +38,6 @@ jobs:
         b2 download-file-by-name Github-SKY 重点客户名单_带分词结果4.xlsx ./Ruijie_DEV/重点客户名单_带分词结果4.xlsx
         ls -la
 
-  run-matching-jaccard:
-    needs: download-repo-and-files
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -64,14 +57,43 @@ jobs:
 
     - name: Upload Jaccard SQLite database to B2
       run: |
-        b2 upload-file Github-SKY ./Jaccard匹配结果.db Jaccard匹配结果.db
+        b2 upload-file Github-SKY ./Ruijie_DEV/Jaccard匹配结果.db Jaccard匹配结果.db
         ls -la
 
   run-matching-fuzzywuzzy:
-    needs: download-repo-and-files
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Public Repository
+      uses: actions/checkout@v3
+
+    - name: Checkout Private Repository
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git clone https://$PAT_TOKEN@github.com/BlueSkyXN/Ruijie_DEV.git
+        ls -la
+
+    - name: Install B2 CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        pip3 install b2
+
+    - name: Authenticate with B2
+      env:
+        B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+        B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+      run: |
+        b2 account authorize $B2_KEY_ID $B2_APPLICATION_KEY
+
+    - name: Download Files from B2
+      run: |
+        b2 download-file-by-name Github-SKY 全部客户名单_带分词结果4.xlsx ./Ruijie_DEV/全部客户名单_带分词结果4.xlsx
+        b2 download-file-by-name Github-SKY 词频统计结果_三阶清洗.xlsx ./Ruijie_DEV/词频统计结果_三阶清洗.xlsx
+        b2 download-file-by-name Github-SKY 重点客户名单_带分词结果4.xlsx ./Ruijie_DEV/重点客户名单_带分词结果4.xlsx
+        ls -la
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -91,5 +113,5 @@ jobs:
 
     - name: Upload FuzzyWuzzy SQLite database to B2
       run: |
-        b2 upload-file Github-SKY ./FuzzyWuzzy匹配结果.db FuzzyWuzzy匹配结果.db
+        b2 upload-file Github-SKY ./Ruijie_DEV/FuzzyWuzzy匹配结果.db FuzzyWuzzy匹配结果.db
         ls -la
